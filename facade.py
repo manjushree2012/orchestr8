@@ -1,4 +1,5 @@
 import time
+from database.repository import Repository
 
 # This is the decorator factory function that accepts any number of keyword arguments
 def flow(**kwargs):
@@ -9,6 +10,22 @@ def flow(**kwargs):
             start_time = time.time()
             print("Decorator parameters:", kwargs)
             print("Inner params:", inner_kwargs)
+
+            # Create a flow in the database first, if not exist
+            # Usage
+
+
+
+            flow_name = kwargs['name']
+            print(flow_name)
+            db_manager = Repository()
+            db_manager.create_flow(flow_name, 'main.py')
+            # flows = db_manager.get_all_flows()
+            # for flow in flows:
+            #     print(f"ID: {flow.id}, Name: {flow.name}, Entry Point: {flow.entry_point}, Created At: {flow.created_at}, Updated At: {flow.updated_at}")
+            db_manager.close_session()
+
+            # flow_id = create_flow(**kwargs)
 
             try:
                 result = func(*args, **inner_kwargs)
