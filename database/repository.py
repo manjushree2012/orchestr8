@@ -1,7 +1,6 @@
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-from database.models.flow import Flow
+from database.models.flow import Flow, FlowRuns, Base
 
 import json
 
@@ -16,11 +15,8 @@ class Repository:
         # Create an engine
         self.engine = create_engine(self.DATABASE_URL, echo=True)
 
-        # Create a declarative base class
-        self.Base = declarative_base()
-
         # Create the table in the database
-        self.Base.metadata.create_all(self.engine)
+        Base.metadata.create_all(self.engine)
 
         # Create a session
         self.Session = sessionmaker(bind=self.engine)

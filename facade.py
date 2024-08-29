@@ -12,12 +12,15 @@ def flow(**kwargs):
             print("Inner params:", inner_kwargs)
 
             # Create a flow in the database first, if not exist
-            # Usage
-
-
-
             flow_name = kwargs['name']
             print(flow_name)
+
+            # GET THE ENTRY POINT OF THAT FLOW HERE
+            print(' Function here')
+            print(func.__module__)
+            print(func.__name__)
+
+
             db_manager = Repository()
             db_manager.create_flow(flow_name, 'main.py')
             # flows = db_manager.get_all_flows()
