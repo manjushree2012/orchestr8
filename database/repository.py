@@ -4,6 +4,7 @@ from database.models.flow import Flow, FlowRuns, Base
 
 import json
 
+from coolname import generate_slug
 class Repository:
     def __init__(self, config_file = 'database\config.config.json'):
         # Load the JSON config file
@@ -27,6 +28,13 @@ class Repository:
         self.session.add(new_flow)
         self.session.commit()
         return new_flow
+
+    def create_flow_run(self, flow_id):
+        flow_run = FlowRuns(name = generate_slug(2), flow_id=flow_id)
+        self.session.add(flow_run)
+        self.session.commit()
+        return flow_run
+
 
     def close_session(self):
         self.session.close()

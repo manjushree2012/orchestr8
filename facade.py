@@ -22,13 +22,9 @@ def flow(**kwargs):
 
 
             db_manager = Repository()
-            db_manager.create_flow(flow_name, 'main.py')
-            # flows = db_manager.get_all_flows()
-            # for flow in flows:
-            #     print(f"ID: {flow.id}, Name: {flow.name}, Entry Point: {flow.entry_point}, Created At: {flow.created_at}, Updated At: {flow.updated_at}")
+            newFlow = db_manager.create_flow(flow_name, 'main.py')
+            newFlowRun = db_manager.create_flow_run(flow_id=newFlow.id)
             db_manager.close_session()
-
-            # flow_id = create_flow(**kwargs)
 
             try:
                 result = func(*args, **inner_kwargs)
