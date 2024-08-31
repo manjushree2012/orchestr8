@@ -8,6 +8,9 @@ def first_task(num1, num2):
 @flow(name="Transforming X to Y on an schedule")
 def migrate():
     # Do something time consuming here
+    print("This is a log message from the flow.")
+    print("Another log message.")
+    
     first_task(100,200)
     return 1
 
