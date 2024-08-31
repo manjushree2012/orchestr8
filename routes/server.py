@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import index
-import flow_run
-import websocket
+from . import index
+from . import flow_run
+from . import websocket
 
 app = FastAPI()
 
