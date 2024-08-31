@@ -11,3 +11,9 @@ async def flow_run(request: Request):
     return templates.TemplateResponse(
         request=request, name="flow-run.html"
     )
+
+@router.get("/flows", response_class=HTMLResponse)
+async def flows(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="flows.html"
+    )
