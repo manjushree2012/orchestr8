@@ -22,6 +22,9 @@ class Repository:
         # Create a session
         self.Session = sessionmaker(bind=self.engine)
         self.session = self.Session()
+
+    def __del__(self):
+        self.close_session()
     
     def create_flow(self, name, entry_point):
         new_flow = Flow(name=name, entry_point=entry_point)
@@ -35,6 +38,8 @@ class Repository:
         self.session.commit()
         return flow_run
 
+    def get_all_flows(self):
+        return self.session.query(Flow).all()
 
     def close_session(self):
         self.session.close()
