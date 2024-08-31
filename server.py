@@ -1,7 +1,7 @@
-from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from routes import index, flow_run
 
 app = FastAPI()
 
@@ -10,17 +10,10 @@ templates = Jinja2Templates(directory="templates")
 # Serve static files from the `static` directory
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get("/", response_class=HTMLResponse)
-async def read_item(request: Request):
-    return templates.TemplateResponse(
-        request=request, name="index.html"
-    )
+app.include_router(index.router)
+app.include_router(flow_run.router)
 
-@app.get("/flow-run", response_class=HTMLResponse)
-async def flow_run(request: Request):
-    return templates.TemplateResponse(
-        request=request, name="flow-run.html"
-    )
+
 
 
 
