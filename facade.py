@@ -30,7 +30,7 @@ def flow(**kwargs):
             # Store the flow information in the database, if not already
             db_manager = Repository()
             newFlow = db_manager.create_flow(flow_name, 'main.py')
-            newFlowRun = db_manager.create_flow_run(flow_id=newFlow.id)
+            newFlowRun = db_manager.create_flow_run(flow_id=newFlow.flow_id)
             db_manager.close_session()
 
             """
