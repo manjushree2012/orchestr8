@@ -27,10 +27,15 @@ class Repository:
         self.close_session()
     
     def create_flow(self, name, entry_point):
-        new_flow = Flow(name=name, entry_point=entry_point)
-        self.session.add(new_flow)
-        self.session.commit()
-        return new_flow
+        # Check if a flow with the same name already exists
+        existing_flow = self.session.query(Flow).filter_by(name = name).first()
+        
+        if not existing_flow:
+            new_flow = Flow(name=name, entry_point=entry_point)
+            self.session.add(new_flow)
+            self.session.commit()
+            return new_flow
+        return existing_flow
 
     def create_flow_run(self, flow_id):
         flow_run = FlowRuns(name = generate_slug(2), flow_id=flow_id)
