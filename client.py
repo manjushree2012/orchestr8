@@ -2,6 +2,7 @@ from facade import flow, task
 
 @task(name='fetch-api-data')
 def first_task(num1, num2):
+    print('Inside first task')
     total = 0
     for i in range(1000000):
         total += i

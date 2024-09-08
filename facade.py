@@ -2,10 +2,10 @@ import time
 from database.repository import Repository
 from data_store import flow_status_store
 from functools import wraps
-
-import logging
-from websocket_handler import WebSocketHandler
 import asyncio
+from logger.log import setup
+import sys
+from logger.wrapper import LoggerWrapper
 
 current_flow = None
 current_flow_run = None
@@ -44,19 +44,9 @@ def flow(**kwargs):
             """
             LOGGER SESSION STARTS HERE
             """
-            # Create a logger for the flow
-            logger = logging.getLogger(flow_name)
-            logger.setLevel(logging.INFO)
-
-            # Set up a WebSocket handler
-            handler = WebSocketHandler("ws://localhost:8000/ws/flow_run")
-            formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-            handler.setFormatter(formatter)
-            logger.addHandler(handler)
+            logger, handler = setup(flow_name)
 
             # Redirect print to logger
-            import sys
-            from logger import LoggerWrapper
             original_stdout = sys.stdout
             sys.stdout = LoggerWrapper(logger)
 
