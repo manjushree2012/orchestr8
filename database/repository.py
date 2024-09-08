@@ -1,6 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-from database.models.flow import Flow, FlowRuns, Base
+from database.models.flow import Flow, FlowRuns, TaskRuns, Base
 
 import json
 
@@ -38,13 +38,19 @@ class Repository:
         return existing_flow
 
     def create_flow_run(self, flow_id):
-        flow_run = FlowRuns(name = generate_slug(2), flow_id=flow_id)
+        flow_run = FlowRuns(name=generate_slug(2), flow_id=flow_id)
         self.session.add(flow_run)
         self.session.commit()
-        return flow_run
+        return self.session.query(FlowRuns).get(flow_run.id)
 
     def get_all_flows(self):
         return self.session.query(Flow).all()
+
+    def create_task_run(self, flow_run_id):
+        task_run = TaskRuns(name = generate_slug(2), flow_run_id = flow_run_id)
+        self.session.add(task_run)
+        self.session.commit()
+        return task_run
 
     def close_session(self):
         self.session.close()

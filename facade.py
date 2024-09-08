@@ -7,6 +7,9 @@ import logging
 from websocket_handler import WebSocketHandler
 import asyncio
 
+current_flow = None
+current_flow_run = None
+
 # This is the decorator factory function that accepts any number of keyword arguments
 def flow(**kwargs):
     
@@ -16,6 +19,7 @@ def flow(**kwargs):
         # This is the wrapper function that can access both the decorator’s keyword arguments (kwargs) and the original function’s arguments (args and inner_kwargs).
         @wraps(func)
         def wrapper(*args, **inner_kwargs):
+            global current_flow, current_flow_run
             """
              INITIAL SETUP
             """
@@ -31,6 +35,10 @@ def flow(**kwargs):
             db_manager = Repository()
             newFlow = db_manager.create_flow(flow_name, 'main.py')
             newFlowRun = db_manager.create_flow_run(flow_id=newFlow.flow_id)
+
+            current_flow = newFlow
+            current_flow_run = newFlowRun
+
             db_manager.close_session()
 
             """
@@ -78,3 +86,24 @@ def flow(**kwargs):
                 return result
         return wrapper
     return decorator
+
+def task(**kwargs):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **inner_kwargs):
+            global current_flow,current_flow_run
+
+            """
+             DATABASE CREATION
+            """
+            db_manager = Repository()
+            newTaskRun = db_manager.create_task_run(flow_run_id=current_flow_run.flow_run_id)
+            db_manager.close_session()
+
+            print(current_flow)
+
+            result = func(*args, **inner_kwargs)
+            return result
+        return wrapper
+    return decorator
+

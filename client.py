@@ -1,4 +1,6 @@
-from facade import flow
+from facade import flow, task
+
+@task(name='fetch-api-data')
 def first_task(num1, num2):
     total = 0
     for i in range(1000000):
@@ -11,8 +13,8 @@ def migrate():
     print("This is a log message from the flow.")
     print("Another log message.")
     
-    first_task(100,200)
-    return 1
+    sum = first_task(num1=100,num2=200)
+    return sum
 
 if __name__ == '__main__':
     migrate()
