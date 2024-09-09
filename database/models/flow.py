@@ -37,3 +37,19 @@ class TaskRuns(Base):
     status = Column(String(255), nullable=False, default="QUEUED")
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+class Log(Base):
+    __tablename__ = 'logs'
+
+    id = Column(Integer, Sequence('logs_id_seq'), primary_key=True)
+    log_id = Column(UUID(as_uuid=True), default=uuid.uuid4, unique=True)
+
+    flow_run_id = Column(UUID(as_uuid=True), ForeignKey('flow_runs.flow_run_id'), nullable=True)
+    task_run_id = Column(UUID(as_uuid=True), ForeignKey('task_runs.task_run_id'), nullable=True)
+
+    level = Column(String(50), nullable=False)  # e.g., DEBUG, INFO, WARNING, ERROR
+    message = Column(String, nullable=False)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+    
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
