@@ -7,8 +7,7 @@ from logger.log import setup
 import sys
 from logger.wrapper import LoggerWrapper
 
-current_flow = None
-current_flow_run = None
+import globals
 
 # This is the decorator factory function that accepts any number of keyword arguments
 def flow(**kwargs):
@@ -19,7 +18,6 @@ def flow(**kwargs):
         # This is the wrapper function that can access both the decorator’s keyword arguments (kwargs) and the original function’s arguments (args and inner_kwargs).
         @wraps(func)
         def wrapper(*args, **inner_kwargs):
-            global current_flow, current_flow_run
             """
              INITIAL SETUP
             """
@@ -36,8 +34,8 @@ def flow(**kwargs):
             newFlow = db_manager.create_flow(flow_name, 'main.py')
             newFlowRun = db_manager.create_flow_run(flow_id=newFlow.flow_id)
 
-            current_flow = newFlow
-            current_flow_run = newFlowRun
+            globals.current_flow = newFlow
+            globals.current_flow_run = newFlowRun
 
             db_manager.close_session()
 
@@ -81,13 +79,12 @@ def task(**kwargs):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **inner_kwargs):
-            global current_flow,current_flow_run
 
             """
              DATABASE CREATION
             """
             db_manager = Repository()
-            newTaskRun = db_manager.create_task_run(flow_run_id=current_flow_run.flow_run_id)
+            newTaskRun = db_manager.create_task_run(flow_run_id=globals.current_flow_run.flow_run_id)
             db_manager.close_session()
 
             try:
