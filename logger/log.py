@@ -9,7 +9,7 @@ def setup(name):
     handler = WebSocketHandler("ws://localhost:8000/ws/flow_run")
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     handler.setFormatter(formatter)
-    logger.addHandler(handler)   
+    logger.addHandler(handler)
 
     return logger, handler
 

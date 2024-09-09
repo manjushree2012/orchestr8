@@ -90,10 +90,13 @@ def task(**kwargs):
             newTaskRun = db_manager.create_task_run(flow_run_id=current_flow_run.flow_run_id)
             db_manager.close_session()
 
-            print(current_flow)
-
-            result = func(*args, **inner_kwargs)
-            return result
+            try:
+                result = func(*args, **inner_kwargs)
+                return result
+            except Exception as e:
+                result = e
+            finally:
+                return result
         return wrapper
     return decorator
 
