@@ -1,5 +1,7 @@
 import logging
 from websocket_handler import WebSocketHandler
+from database import repository
+from database_handler import DatabaseHandler
 
 def setup(name):
     logger = logging.getLogger(name)
@@ -10,6 +12,13 @@ def setup(name):
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
+
+    # Set up a database handler and add to the logger
+    db_manager = repository.Repository()
+    db_handler = DatabaseHandler(db_manager)
+    db_formatter = logging.Formatter('%(message)s')
+    db_handler.setFormatter(db_formatter)
+    logger.addHandler(db_handler)
 
     return logger, handler
 
