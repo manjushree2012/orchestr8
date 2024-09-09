@@ -1,6 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-from database.models.flow import Flow, FlowRuns, TaskRuns, Base
+from database.models.flow import Flow, FlowRuns, TaskRuns, Log, Base
 
 import json
 
@@ -51,6 +51,17 @@ class Repository:
         self.session.add(task_run)
         self.session.commit()
         return task_run
+
+    def create_log(self, flow_run_id=None, task_run_id=None, level='INFO', message=None):
+        log = Log(
+            flow_run_id=flow_run_id,
+            task_run_id=task_run_id,
+            level=level,
+            message=message
+        )
+        self.session.add(log)
+        self.session.commit()
+        return log
 
     def close_session(self):
         self.session.close()
