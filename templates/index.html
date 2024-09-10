@@ -3,12 +3,9 @@
 
 {% block content %}
 <main>
-    <div class="RZmKBZs1E1eXw8vkE6jY mlwbuv_bMkMhzTA3msA3">
-      
-     
-
- 
+    <div class="RZmKBZs1E1eXw8vkE6jY mlwbuv_bMkMhzTA3msA3"> 
       <div class="xCPtuxM4_gihvpPwv9bX Nu4HUn5EQpnNJ1itNkrd aJF41JQLhtfw_MCGt5Th tVvQ7rZHDN8eqgjOONa2 AWLGIryfLKwkSeUZd4O6">
+        <!-- Left content -->
         <div class="_wYiJGbRZyFZeCc8y7Sf hD0sTTDgbxakubcHVW2X _Ybd3WwuTVljUT4vEaM3 mveJTCIb2WII7J4sY22F mngKhi_Rv06PF57lblDI _YxZw_O8dWkTljptcO7z SWDELhWFjL8JxEtm91_o _1jTZ8KXRZul60S6czNi a3PhNoZfGyYtBq9oUFmb roTtmJKSiubwdmgJkwrv">
           <div class="hD0sTTDgbxakubcHVW2X">
             <h3 class="TR_P65x9ie7j6uxFo_Cs vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Last 30 flow runs throughout</h3>
@@ -16,134 +13,50 @@
           </div>
           <canvas id="myChart" height="50"></canvas>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <!-- <div class="bg-gray-900 text-white p-6"> -->
-
-      <div class="space-y-4">
-
-
-        <!-- Second Box (Copy of the first, with different content) -->
-        <div class="p-4 rounded-lg shadow-md">
-            <!-- Title Row -->
-            <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-2">
-                    <span class="text-blue-400 font-semibold">dark-matter</span>
-                    <div class="flex space-x-1">
-                        <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">db</span>
-                        <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">production</span>
-                        <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">etl</span>
+        <div class="space-y-4">
+          {% for flow in last_30_flows_runs %}
+            <div class="p-4 rounded-lg shadow-md">
+                <!-- Title Row -->
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-blue-400 font-semibold">{{ flow.name }}</span>
+                        <div class="flex space-x-1">
+                            <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">db</span>
+                            <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">production</span>
+                            <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">etl</span>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 text-sm">10m ago</div>
+                </div>
+                <!-- Info Rows -->
+                <div class="mt-4 flex justify-between text-sm">
+                    <div>
+                        <p>Task Runs</p>
+                        <p>2</p>
+                    </div>
+                    <div>
+                        <p>Duration</p>
+                        <p>1m 10s</p>
+                    </div>
+                    <div class="flex items-center">
+                        <p class="text-red-500 ml-2 font-semibold">Failed</p>
                     </div>
                 </div>
-                <div class="text-gray-400 text-sm">10m ago</div>
-            </div>
-            <!-- Info Rows -->
-            <div class="mt-4 flex justify-between text-sm">
-                <div>
-                    <p>Task Runs</p>
-                    <p>2</p>
-                </div>
-                <div>
-                    <p>Duration</p>
-                    <p>1m 10s</p>
-                </div>
-                <div class="flex items-center">
-                    <p class="text-red-500 ml-2 font-semibold">Failed</p>
+                <div class="mt-4 flex justify-between text-sm">
+                    <div>
+                        <p class="text-gray-400">Deployment</p>
+                        <p class="text-blue-400">galaxy-deployment</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-400">Work Queue</p>
+                        <p class="text-blue-400">default</p>
+                    </div>
                 </div>
             </div>
-            <div class="mt-4 flex justify-between text-sm">
-                <div>
-                    <p class="text-gray-400">Deployment</p>
-                    <p class="text-blue-400">galaxy-deployment</p>
-                </div>
-                <div>
-                    <p class="text-gray-400">Work Queue</p>
-                    <p class="text-blue-400">default</p>
-                </div>
-            </div>
+          {% endfor %}
         </div>
-
-        <div class="p-4 rounded-lg shadow-md">
-          <!-- Title Row -->
-          <div class="flex justify-between items-center">
-              <div class="flex items-center space-x-2">
-                  <span class="text-blue-400 font-semibold">dark-matter</span>
-                  <div class="flex space-x-1">
-                      <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">db</span>
-                      <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">production</span>
-                      <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">etl</span>
-                  </div>
-              </div>
-              <div class="text-gray-400 text-sm">10m ago</div>
-          </div>
-          <!-- Info Rows -->
-          <div class="mt-4 flex justify-between text-sm">
-              <div>
-                  <p>Task Runs</p>
-                  <p>2</p>
-              </div>
-              <div>
-                  <p>Duration</p>
-                  <p>1m 10s</p>
-              </div>
-              <div class="flex items-center">
-                  <p class="text-red-500 ml-2 font-semibold">Failed</p>
-              </div>
-          </div>
-          <div class="mt-4 flex justify-between text-sm">
-              <div>
-                  <p class="text-gray-400">Deployment</p>
-                  <p class="text-blue-400">galaxy-deployment</p>
-              </div>
-              <div>
-                  <p class="text-gray-400">Work Queue</p>
-                  <p class="text-blue-400">default</p>
-              </div>
-          </div>
       </div>
-      </div>
-      <!-- </div> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </div>
+      
         <!-- Right Content -->
         <div class="xCPtuxM4_gihvpPwv9bX iHPddplqYvrN6qWgvntn AqVNvLG_H6VHhym2yKMp r8lSKzxeZmXfyH8vtxDQ">
           <!-- Top Sales Card -->

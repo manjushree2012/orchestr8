@@ -63,5 +63,8 @@ class Repository:
         self.session.commit()
         return log
 
+    def get_last_N_flow_runs(self, n):
+        return self.session.query(FlowRuns).order_by(FlowRuns.id.desc()).limit(n).all()
+
     def close_session(self):
         self.session.close()
