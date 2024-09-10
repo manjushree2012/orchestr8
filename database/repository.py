@@ -1,6 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, func
 from database.models.flow import Flow, FlowRuns, TaskRuns, Log, Base
+from datetime import datetime
 
 import json
 
@@ -37,8 +38,8 @@ class Repository:
             return new_flow
         return existing_flow
 
-    def create_flow_run(self, flow_id):
-        flow_run = FlowRuns(name=generate_slug(2), flow_id=flow_id)
+    def create_flow_run(self, flow_id, start_time = datetime.utcnow()):
+        flow_run = FlowRuns(name=generate_slug(2), flow_id=flow_id,  start_time=start_time)
         self.session.add(flow_run)
         self.session.commit()
         return self.session.query(FlowRuns).get(flow_run.id)
