@@ -24,6 +24,10 @@ class FlowRuns(Base):
     name = Column(String(100), nullable=False)
     flow_id = Column(UUID(as_uuid=True), ForeignKey('flows.flow_id'))
     status = Column(String(255), nullable=False, default="QUEUED")
+
+    start_time = Column(DateTime, nullable=True)  # new field
+    end_time = Column(DateTime, nullable=True)  # new field
+
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
