@@ -1,5 +1,5 @@
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, func
 from database.models.flow import Flow, FlowRuns, TaskRuns, Log, Base
 
 import json
@@ -64,7 +64,14 @@ class Repository:
         return log
 
     def get_last_N_flow_runs(self, n):
-        return self.session.query(FlowRuns).order_by(FlowRuns.id.desc()).limit(n).all()
+        return self.session.query(FlowRuns, Flow, TaskRuns)\
+            .join(Flow, FlowRuns.flow_id == Flow.flow_id)\
+            .join(TaskRuns, FlowRuns.flow_run_id == TaskRuns.flow_run_id)\
+            .order_by(FlowRuns.id.desc())\
+            .limit(n)\
+            .all()
+
+
 
     def close_session(self):
         self.session.close()

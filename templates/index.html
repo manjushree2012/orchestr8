@@ -14,12 +14,12 @@
           <canvas id="myChart" height="50"></canvas>
 
         <div class="space-y-4">
-          {% for flow in last_30_flows_runs %}
+          {% for flow_run, flow, task_run in last_30_flows_runs %}
             <div class="p-4 rounded-lg shadow-md">
                 <!-- Title Row -->
                 <div class="flex justify-between items-center">
                     <div class="flex items-center space-x-2">
-                        <span class="text-blue-400 font-semibold">{{ flow.name }}</span>
+                        <span class="text-blue-400 font-semibold">{{ flow_run.name }}</span>
                         <div class="flex space-x-1">
                             <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">db</span>
                             <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">production</span>
@@ -28,7 +28,6 @@
                     </div>
                     <div class="text-gray-400 text-sm">10m ago</div>
                 </div>
-                <!-- Info Rows -->
                 <div class="mt-4 flex justify-between text-sm">
                     <div>
                         <p>Task Runs</p>
@@ -44,8 +43,8 @@
                 </div>
                 <div class="mt-4 flex justify-between text-sm">
                     <div>
-                        <p class="text-gray-400">Deployment</p>
-                        <p class="text-blue-400">galaxy-deployment</p>
+                        <p class="text-gray-400">Flow</p>
+                        <p class="text-blue-400">{{ flow.name }}</p>
                     </div>
                     <!-- <div>
                         <p class="text-gray-400">Work Queue</p>
