@@ -20,7 +20,7 @@
         <div class="xCPtuxM4_gihvpPwv9bX iHPddplqYvrN6qWgvntn AqVNvLG_H6VHhym2yKMp r8lSKzxeZmXfyH8vtxDQ">
           <!-- Top Sales Card -->
           <div class="_wYiJGbRZyFZeCc8y7Sf hD0sTTDgbxakubcHVW2X uLPch_bqyJDXwe5tynMV _Ybd3WwuTVljUT4vEaM3 mveJTCIb2WII7J4sY22F mngKhi_Rv06PF57lblDI _YxZw_O8dWkTljptcO7z _1jTZ8KXRZul60S6czNi">
-            Stop being so melodramatic
+            Task Runs
             
             
           
@@ -31,4 +31,45 @@
     </div>
   </main>
 {% endblock %}
+
+{% block script %}
+<script>
+  const ctx = document.getElementById('myChart');
+
+  const data = {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Damn', '12', '123', 'asdas'],
+    datasets: [
+      {
+        label: 'Completed',
+        data: [18,12,6,9,12,3,9],
+        backgroundColor: [ 'rgba(42, 199, 105)' ],
+        borderRadius: 5, // Add this property to curve the bars
+        borderSkipped: false, // This is required to curve all sides of the bar,
+        barThickness: 15,
+      },
+      {
+        label: 'Failed',
+        data: [18, 12, 6,9,12,3,9],
+        backgroundColor: [ 'rgba(225,5,41)' ],
+        borderRadius: 5, // Add this property to curve the bars
+        borderSkipped: false, // This is required to curve all sides of the bar
+        barThickness: 15,
+      },
+    ]
+  }
+
+  const chart = new Chart(ctx, {
+      type: 'bar',
+      data: data,
+      options: {
+        scales: {
+          x: { stacked: true, grid: { display: false } },
+          y: { stacked: true, grid: { display: false } },
+        }
+      }
+    });
+</script>
+
+{% endblock %}
+
 
