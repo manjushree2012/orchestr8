@@ -68,12 +68,12 @@
             <h3 class="TR_P65x9ie7j6uxFo_Cs vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Active Flows</h3>
 
             <div class="space-y-4">
-              {% for flow_run, flow, task_run in last_30_flows_runs %}
+              {% for flow in active_flows %}
                 <div class="p-4 rounded-lg shadow-md">
                     <!-- Title Row -->
                     <div class="flex justify-between items-center">
                         <div class="flex items-center space-x-2">
-                            <span class="text-blue-400 font-semibold">Transforming Olivia123 to Paxus</span>
+                            <span class="text-blue-400 font-semibold">{{ flow.name}}</span>
                             <div class="flex space-x-1">
                                 <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">db</span>
                                 <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">production</span>
@@ -87,13 +87,13 @@
                             <p>2</p>
                         </div>
                         <div>
-                            <p>Last Run</p>
-                            <p>{{ flow_run.start_time }}</p>
+                            <p>Last Flow Run On</p>
+                            <p>{{ 'Help' }}</p>
                         </div>
     
                         <div>
                           <p>Next Run</p>
-                          <p>{{ flow_run.end_time }}</p>
+                          <p>{{ '--'  }}</p>
                       </div>
                     </div>
                 </div>

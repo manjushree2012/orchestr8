@@ -71,8 +71,6 @@ class Repository:
             .order_by(FlowRuns.id.desc())\
             .limit(n)\
             .all()
-
-
-
+    
     def close_session(self):
         self.session.close()

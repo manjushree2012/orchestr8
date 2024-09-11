@@ -12,9 +12,10 @@ templates = Jinja2Templates(directory="templates")
 async def read_item(request: Request):
     db_manager = Repository()
     last_30_flows_runs = db_manager.get_last_N_flow_runs(30)
+    active_flows = db_manager.get_all_flows()
 
     return templates.TemplateResponse(
         request=request, 
         name="index.html",
-        context={"last_30_flows_runs": last_30_flows_runs}
+        context={"last_30_flows_runs": last_30_flows_runs, 'active_flows' : active_flows}
     )
