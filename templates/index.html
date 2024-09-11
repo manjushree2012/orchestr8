@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="mt-4 flex justify-between text-sm">
-                    <div>
+                    <div> 
                         <p class="text-gray-400">Flow</p>
                         <p class="text-blue-400">{{ flow.name }}</p>
                     </div>
@@ -65,7 +65,40 @@
         <div class="xCPtuxM4_gihvpPwv9bX iHPddplqYvrN6qWgvntn AqVNvLG_H6VHhym2yKMp r8lSKzxeZmXfyH8vtxDQ">
           <!-- Top Sales Card -->
           <div class="_wYiJGbRZyFZeCc8y7Sf hD0sTTDgbxakubcHVW2X uLPch_bqyJDXwe5tynMV _Ybd3WwuTVljUT4vEaM3 mveJTCIb2WII7J4sY22F mngKhi_Rv06PF57lblDI _YxZw_O8dWkTljptcO7z _1jTZ8KXRZul60S6czNi">
-            Task Runs
+            <h3 class="TR_P65x9ie7j6uxFo_Cs vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Active Flows</h3>
+
+            <div class="space-y-4">
+              {% for flow_run, flow, task_run in last_30_flows_runs %}
+                <div class="p-4 rounded-lg shadow-md">
+                    <!-- Title Row -->
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-blue-400 font-semibold">Transforming Olivia123 to Paxus</span>
+                            <div class="flex space-x-1">
+                                <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">db</span>
+                                <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">production</span>
+                                <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">etl</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between text-sm">
+                        <div>
+                            <p>Flow Runs</p>
+                            <p>2</p>
+                        </div>
+                        <div>
+                            <p>Last Run</p>
+                            <p>{{ flow_run.start_time }}</p>
+                        </div>
+    
+                        <div>
+                          <p>Next Run</p>
+                          <p>{{ flow_run.end_time }}</p>
+                      </div>
+                    </div>
+                </div>
+              {% endfor %}
+            </div>
           </div>
         </div>
       </div>
