@@ -8,7 +8,7 @@
             <div class="YRrCJSr_j5nopfm4duUc sJNGKHxFYdN5Nzml5J2j Q_jg_EPdNf9eDMn1mLI2 hD0sTTDgbxakubcHVW2X">
                 <div class="VQS2tmQ_zFyBOC2tkmto">
                 <span class="q1oXbofRCOhVhOSB8tiU IOPhczRgtphv6NdNBDjj wgkxUJNDca22__ptDPRh __9sbu0yrzdhGIkLWNXl cdZDaAM7xDQV_z8X7CiP OyABRrnTV_kvHV7dJ0uE">
-                    Transforming Olivia123 to Paxus
+                    {{ flow.name }}
                 </span>
                 <h3 class="d3C8uAdJKNl1jzfE9ynq _43MO1gcdi2Y0RJW1uHL PeR2JZ9BZHYIH8Ea3F36 XIIs8ZOri3wm8Wnj9N_y">
                     Created on: About a week ago
@@ -25,6 +25,7 @@
             {% include "flow-runs-bar-graph.html" %}
 
             <!-- Flow runs listing -->
+            {% for flow_run in flow_runs %}
             <div class="bg-white shadow p-4 mb-4 rounded-lg border border-gray-200 flex items-start">
                 <div class="w-2.5 h-full bg-yellow-500 mr-4 rounded"></div>
                 <div class="flex-grow">
@@ -32,17 +33,18 @@
                         <div class="mt-2">
                             <span class="text-gray-900 font-medium">Transforming Olivia123 to Paxus</span>
                             <span class="text-blue-500 font-medium">&gt;</span>
-                            <a href="#" class="text-blue-500"><span class="text-gray-900 font-medium">competent-carp</span> </a>
+                            <a href="#" class="text-blue-500"><span class="font-medium">{{ flow_run.name}}</span> </a>
                           </div>
                     </div>
                     <div class="text-gray-500 text-sm mt-1 flex items-center">
-                        <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-md">Completed</span>
+                        <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-md">{{ flow_run.status }}</span>
                         <span>Scheduled for 2024/09/10 11:53:13 AM</span>
                         <span class="ml-4">1d 2h late</span>
                         <span class="ml-4">None</span>
                     </div>
                 </div>
-            </div>          
+            </div>   
+            {% endfor %}       
 
 
             <!-- Card Footer -->

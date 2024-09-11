@@ -27,8 +27,12 @@ async def flows(request: Request):
     )
 
 @router.get('/flows/{flow_id}', name='flow_details')
-async def flow_details(request: Request, flow_id: str):   
-     return templates.TemplateResponse(
+async def flow_details(request: Request, flow_id: str):
+    db_manager = Repository()
+    flow, flow_runs = db_manager.get_flow_with_runs(flow_id)
+
+    return templates.TemplateResponse(
         request=request,
         name="flow_details.html",
+        context = {"flow" : flow, 'flow_runs' : flow_runs }
     )
