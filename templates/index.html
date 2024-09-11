@@ -11,7 +11,9 @@
             <h3 class="TR_P65x9ie7j6uxFo_Cs vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Last 30 flow runs throughout</h3>
             <span class="d3C8uAdJKNl1jzfE9ynq _43MO1gcdi2Y0RJW1uHL PeR2JZ9BZHYIH8Ea3F36 XIIs8ZOri3wm8Wnj9N_y">Hover over each bar to see the flow run information</span>
           </div>
-          <canvas id="myChart" height="50"></canvas>
+
+          {% include "flow-runs-bar-graph.html" %}
+
 
         <div class="space-y-4">
           {% for flow_run, flow, task_run in last_30_flows_runs %}
