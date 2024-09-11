@@ -25,3 +25,10 @@ async def flows(request: Request):
         name="flows.html",
         context = {"flows" : flows}
     )
+
+@router.get('/flows/{flow_id}', name='flow_details')
+async def flow_details(request: Request, flow_id: str):   
+     return templates.TemplateResponse(
+        request=request,
+        name="flow_details.html",
+    )
