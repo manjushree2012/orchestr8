@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Sequence
+from sqlalchemy import Column, Integer, String, DateTime, Sequence, JSON
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 from sqlalchemy.dialects.postgresql import UUID
@@ -13,6 +13,7 @@ class Flow(Base):
     flow_id = Column(UUID(as_uuid=True), default=uuid.uuid4, unique=True)
     name = Column(String(100), nullable=False)
     entry_point = Column(String(255), nullable=False)
+    tags = Column(JSON, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -25,8 +26,8 @@ class FlowRuns(Base):
     flow_id = Column(UUID(as_uuid=True), ForeignKey('flows.flow_id'))
     status = Column(String(255), nullable=False, default="QUEUED")
 
-    start_time = Column(DateTime, nullable=True)  # new field
-    end_time = Column(DateTime, nullable=True)  # new field
+    start_time = Column(DateTime, nullable=True)
+    end_time = Column(DateTime, nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

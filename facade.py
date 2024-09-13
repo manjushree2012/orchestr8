@@ -28,10 +28,11 @@ def flow(**kwargs):
             """
             # Create a flow in the database first, if not exist
             flow_name = kwargs['name']
+            tags = kwargs['tags'] or None
 
             # Store the flow information in the database, if not already
             db_manager = Repository()
-            newFlow = db_manager.create_flow(flow_name, 'main.py')
+            newFlow = db_manager.create_flow(flow_name, 'main.py', tags=tags)
             newFlowRun = db_manager.create_flow_run(flow_id=newFlow.flow_id)
 
             globals.current_flow = newFlow

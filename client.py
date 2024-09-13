@@ -8,7 +8,7 @@ def first_task(num1, num2):
         total += i
     return total
 
-@flow(name="Transforming X to Y on an schedule")
+@flow(name="Transforming X to Y on an schedule", tags=['db', 'production', 'etl', 'weekly'])
 def migrate():
     # Do something time consuming here
     print("This is a log message from the flow.")
