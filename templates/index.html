@@ -79,9 +79,9 @@
                             <span class="text-blue-400 font-semibold">{{ flow.name }}</span>
                           </a>
                             <div class="flex space-x-1">
-                                <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">db</span>
-                                <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">production</span>
-                                <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">etl</span>
+                              {% for tag in flow.tags %}
+                                <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">{{ tag }}</span>
+                              {% endfor %}
                             </div>
                         </div>
                     </div>
