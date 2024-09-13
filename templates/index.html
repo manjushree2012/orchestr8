@@ -139,7 +139,84 @@
       plugins: {
         legend: {
           display: false // Hide the legend if not needed
-        }
+        },
+        tooltip: {
+                        enabled: false, // Disable default tooltip
+                        external: function(context) {
+                            // Get the tooltip element or create one if not present
+                            let tooltipEl = document.getElementById('chartjs-tooltip');
+                            if (!tooltipEl) {
+                                tooltipEl = document.createElement('div');
+                                tooltipEl.id = 'chartjs-tooltip';
+                                tooltipEl.classList.add('chartjs-tooltip');
+                                document.body.appendChild(tooltipEl);
+                            }
+
+                            // Hide the tooltip when no data is hovered
+                            const tooltipModel = context.tooltip;
+                            if (tooltipModel.opacity === 0) {
+                                tooltipEl.style.opacity = 0;
+                                return;
+                            }
+
+                            // Set custom HTML content for the tooltip
+                            const dataPoint = tooltipModel.dataPoints[0];
+                            const label = dataPoint.label;
+                            const value = dataPoint.raw;
+
+                            tooltipEl.innerHTML = `
+                                  <div class="tooltip-content">
+                                      <div class="flex justify-between items-center">
+                                          <div class="flex items-center space-x-2">
+                                              <span class="text-blue-400 font-semibold">Transforming X to Y on schedule</span>
+                                              <span class="text-blue-400 font-semibold"> intrepid-moose</span>
+                                          </div>
+                                          <div class="text-gray-400 text-sm">10m ago</div>
+                                      </div>
+                                      <div class="mt-4 flex justify-between text-sm">
+                                          <div>
+                                              <p>Task Runs</p>
+                                              <p>2</p>
+                                          </div>
+                                          <div>
+                                              <p>Start Time</p>
+                                              <p>Booby tassles</p>
+                                          </div>
+                                          <div>
+                                            <p>End Time</p>
+                                            <p>End time here</p>
+                                        </div>
+                                        <div class="flex items-center">
+                                          <p class="text-red-500 ml-2 font-semibold"> COMPLETED </p>
+                                      </div>
+                                  </div>
+                                </div>
+                            `;
+
+                            // Add styles for the tooltip element
+                            tooltipEl.style.borderRadius = '5px'; // Curved edges
+                            tooltipEl.style.borderWidth = '1px'; // Slight border
+                            tooltipEl.style.borderColor = 'rgba(0, 0, 0, 0.2)'; // Border color
+                            tooltipEl.style.padding = '8px'; // Add some padding
+                            tooltipEl.style.background = '#FFFFFF'; // White background with some opacity
+                            tooltipEl.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)'; // Add a subtle shadow
+
+
+                             // Keep the tooltip visible when hovered
+                            tooltipEl.style.pointerEvents = 'auto'; // Allow mouse events on the tooltip
+                            tooltipEl.onmouseover = function() {
+                              tooltipEl.style.opacity = 1; // Keep the tooltip visible
+                            };
+
+                            // Position the tooltip
+                            const position = context.chart.canvas.getBoundingClientRect();
+                            tooltipEl.style.opacity = 1;
+                            tooltipEl.style.position = 'absolute';
+                            tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
+                            tooltipEl.style.top = position.bottom + window.pageYOffset + 10 + 'px'; // Adjusted top position
+
+                        }
+                    }
       }
     }
   };
