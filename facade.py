@@ -38,8 +38,6 @@ def flow(**kwargs):
             globals.current_flow = newFlow
             globals.current_flow_run = newFlowRun
 
-            db_manager.close_session()
-
             """
             LOGGER SESSION STARTS HERE
             """
@@ -64,9 +62,11 @@ def flow(**kwargs):
 
                 result = e
             finally:
-                end_time = time.time()
-                elapsed_time = end_time - start_time
-                print(f"Function '{func.__name__}' took {elapsed_time:.6f} seconds to execute.")
+                import datetime
+                newFlowRun.end_time = datetime.datetime.utcnow()
+                db_manager.session.commit()
+
+                db_manager.close_session()
 
                 # Restore the original stdout
                 sys.stdout = original_stdout
@@ -86,8 +86,6 @@ def task(**kwargs):
             """
             db_manager = Repository()
             newTaskRun = db_manager.create_task_run(flow_run_id=globals.current_flow_run.flow_run_id)
-            db_manager.close_session()
-
             try:
                 result = func(*args, **inner_kwargs)
                 return result
