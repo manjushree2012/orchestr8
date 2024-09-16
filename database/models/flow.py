@@ -90,6 +90,10 @@ class TaskRuns(Base):
     name = Column(String(100), nullable=False)
     flow_run_id = Column(UUID(as_uuid=True), ForeignKey('flow_runs.flow_run_id'))
     status = Column(String(255), nullable=False, default="QUEUED")
+
+    start_time = Column(DateTime, nullable=True)
+    end_time = Column(DateTime, nullable=True)
+
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -102,6 +106,9 @@ class TaskRuns(Base):
             'name'       : self.name,
             'flow_run_id': str(self.flow_run_id),
             'status'     : self.status,
+
+            'start_time' : str(self.start_time),
+            'end_time'   : str(self.end_time),
 
             'created_at' : str(self.created_at),
             'updated_at' : str(self.updated_at),
