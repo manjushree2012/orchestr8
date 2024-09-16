@@ -3,6 +3,8 @@ from sqlalchemy import create_engine, func
 from database.models.flow import Flow, FlowRuns, TaskRuns, Log, Base
 from datetime import datetime
 
+from sqlalchemy.orm import aliased, contains_eager
+
 import json
 
 from coolname import generate_slug
@@ -65,13 +67,21 @@ class Repository:
         return log
 
     def get_last_N_flow_runs(self, n):
-        return self.session.query(FlowRuns, Flow, TaskRuns)\
-            .join(Flow, FlowRuns.flow_id == Flow.flow_id)\
-            .join(TaskRuns, FlowRuns.flow_run_id == TaskRuns.flow_run_id)\
-            .order_by(FlowRuns.id.desc())\
-            .limit(n)\
+        FlowAlias = aliased(Flow)
+        TaskRunsAlias = aliased(TaskRuns)
+
+        result = self.session.query(FlowRuns) \
+            .join(FlowAlias, FlowRuns.flow_id == FlowAlias.flow_id) \
+            .join(TaskRunsAlias, FlowRuns.flow_run_id == TaskRunsAlias.flow_run_id) \
+            .options(contains_eager(FlowRuns.flow)) \
+            .options(contains_eager(FlowRuns.task_runs)) \
+            .order_by(FlowRuns.id.desc()) \
+            .limit(n) \
             .all()
-        
+
+        result_dict = [flow_run.to_dict() for flow_run in result]
+        return result_dict
+                
     def get_flow_with_runs(self, flow_id):
         import uuid
         flow_id_uuid = uuid.UUID(flow_id) # Convert the string to UUID object
