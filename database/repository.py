@@ -90,6 +90,13 @@ class Repository:
             flow_runs = self.session.query(FlowRuns).filter_by(flow_id=flow_id_uuid).all()
             return flow, flow_runs
         return None, None
+    
+    def get_flow_run(self, flow_run_id):
+        import uuid
+        flow_run_id_uuid = uuid.UUID(flow_run_id) # Convert the string to UUID object
+
+        flow_run = self.session.query(FlowRuns).filter(FlowRuns.flow_run_id==flow_run_id_uuid).first()
+        return flow_run
 
     def close_session(self):
         self.session.close()

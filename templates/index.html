@@ -20,7 +20,9 @@
                 <!-- Title Row -->
                 <div class="flex justify-between items-center">
                     <div class="flex items-center space-x-2">
+                      <a href= "{{ url_for('flow_run_details', flow_run_id = flow_run.flow_run_id) }}">
                         <span class="text-blue-400 font-semibold">{{ flow_run.name }}</span>
+                        </a>
                     </div>
                     <div class="text-gray-400 text-sm">{{ flow_run.started_at }}</div>
                 </div>
