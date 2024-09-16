@@ -89,9 +89,9 @@
 
 
 <script>
-    const last30Flows = {{ flow_run | tojson }};
+    const flowRun = {{ flow_run | tojson }};
 
-    console.log(last30Flows)
+    console.log(flowRun)
 
   function showVisibleGroups() {
     var a = timeline.getVisibleGroups();
@@ -131,29 +131,22 @@ var options = {
   },
 
 };
-var groups = new vis.DataSet();
+// var groups = new vis.DataSet();
 var items = new vis.DataSet();
 
-var count = 5;
-
-for (var i = 0; i < count; i++) {
-  var start = Date.now() + 1000 * 60 * 60 * (i + Math.floor(Math.random() * 24)); // random hour of the day
-  var end = start + 1000 * 60 * 60 * (1 + Math.floor(Math.random() * 5)); // random duration
-
-  groups.add({
-    id: i,
-    content: "Task " + i,
-    order: i,
-  });
-
-  items.add({
-    id: i,
-    group: i,
-    start: start,
-    end: end,
-    type: "range",
-    content: "export-data " + i,
-  });
+// Iterate over the tasks array
+for (var i = 0; i < flowRun.tasks.length; i++) {
+  var task = flowRun.tasks[i];
+  var item = {
+    id: task.id,
+    content: task.name,
+    start: task.start_time
+  };
+  // Add end property if available
+  if (task.end_time) {
+    item.end = task.end_time;
+  }
+  items.add(item);
 }
 
 // create a Timeline
@@ -183,7 +176,7 @@ let groupFocus = (e) => {
   }, []);
   timeline.focus(vItems);
 };
-this.timeline.on("scroll", debounce(groupFocus, 200));
+// this.timeline.on("scroll", debounce(groupFocus, 200));
 // Enabling the next line leads to a continuous since calling focus might scroll vertically even if it shouldn't
 // this.timeline.on("scrollSide", debounce(groupFocus, 200))
 
