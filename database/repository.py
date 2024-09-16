@@ -96,7 +96,7 @@ class Repository:
         flow_run_id_uuid = uuid.UUID(flow_run_id) # Convert the string to UUID object
 
         flow_run = self.session.query(FlowRuns).filter(FlowRuns.flow_run_id==flow_run_id_uuid).first()
-        return flow_run
+        return flow_run.to_dict()
 
     def close_session(self):
         self.session.close()
