@@ -59,11 +59,21 @@ class FlowRuns(Base):
             'name'       : self.name,
             'flow_id'    : str(self.flow_id),
             'status'     : self.status,
+
             'started_at' : humanize.naturaltime(self.start_time) if self.start_time else None,
-            'duration'   : self.calculate_duration(),
+            'duration'    : self.calculate_duration_in_seconds(),
+            'durationReadable'   : self.calculate_duration(),
+
             'flow'       : self.flow.to_dict() if self.flow else None,
             # 'task_runs': [task_run.to_dict() for task_run in self.task_runs]
         }
+
+    def calculate_duration_in_seconds(self):
+        if self.start_time and self.end_time:
+            delta = self.end_time - self.start_time
+            return delta.total_seconds()
+        return None
+
 
     def calculate_duration(self):
         if self.start_time and self.end_time:

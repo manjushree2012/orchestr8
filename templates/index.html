@@ -14,7 +14,6 @@
 
           {% include "flow-runs-bar-graph.html" %}
 
-
         <div class="space-y-4">
           {% for flow_run in last_30_flows_runs %}
             <div class="p-4 rounded-lg shadow-md">
@@ -32,7 +31,7 @@
                     </div>
                     <div>
                         <p>Duration</p>
-                        <p>{{ flow_run.duration }}</p>
+                        <p>{{ flow_run.durationReadable }}</p>
                     </div>
 
                  
@@ -106,41 +105,6 @@
 <script src="https://cdn.jsdelivr.net/npm/date-fns@4.0.0/cdn.min.js"></script>
 <script>
   const { differenceInMilliseconds, intervalToDuration, formatDuration } = window.dateFns;
-
-  // Example timestamps (start and end)
-  // const startTimestamp = new Date('2024-09-15T09:00:00');
-  // const endTimestamp = new Date('2024-09-15T10:30:45');
-  console.log('Flow duration outside:', getTimeDiff('2024-09-15T09:00:00', '2024-09-15T10:30:45'));
-
-  function getTimeDiff(startTimestampStr, endTimestampStr)
-  {
-      const startTimestamp = new Date(startTimestampStr);
-      const endTimestamp = new Date(endTimestampStr);
-
-      // Calculate the difference in milliseconds
-      const difference = differenceInMilliseconds(endTimestamp, startTimestamp);
-
-      // Convert the difference to a duration
-      const duration = intervalToDuration({ start: startTimestamp, end: endTimestamp });
-
-      // Format the duration into a human-readable format
-      const formattedDuration = formatDuration(duration, { delimiter: ', ' });
-
-      return formattedDuration
-  }
-
-    function getTimeDiffInSec(startTimestampStr, endTimestampStr) {
-    const startTimestamp = new Date(startTimestampStr);
-    const endTimestamp = new Date(endTimestampStr);
-
-    // Calculate the difference in milliseconds
-    const difference = endTimestamp - startTimestamp;
-
-    // Convert the difference to minutes
-    const minutes = Math.round(difference / 1000);
-
-    return minutes;
-  }
 </script>
 
 <script>
@@ -148,19 +112,24 @@
 
   console.log(last30Flows)
 
-  const timeDiffs = [];
+  const durations = new Array(30).fill(0);
+  durations.splice(-last30Flows.length, last30Flows.length, ...last30Flows.map(flowRun => flowRun.duration));
+  console.log(durations)
 
-  console.log()
 
-  last30Flows.forEach((flow) => {
-    const startTimestampStr = flow.flow_runs.start_time;
-    const endTimestampStr = flow.flow_runs.end_time;
+  // const timeDiffs = [];
+
+  // console.log()
+
+  // last30Flows.forEach((flow) => {
+  //   const startTimestampStr = flow.flow_runs.start_time;
+  //   const endTimestampStr = flow.flow_runs.end_time;
     
-    const timeDiff = getTimeDiffInSec(startTimestampStr, endTimestampStr);
-    timeDiffs.push(timeDiff);
-  });
+  //   const timeDiff = getTimeDiffInSec(startTimestampStr, endTimestampStr);
+  //   timeDiffs.push(timeDiff);
+  // });
 
-  console.log(timeDiffs); 
+  // console.log(timeDiffs); 
 
   const ctx = document.getElementById('myChart').getContext('2d');
 
@@ -168,7 +137,7 @@
     labels: Array(30).fill(''), // Last N flows, no need for X-axis labels
     datasets: [{
       label: 'Flows',
-      data: [0,0,0,0,0,0,0,0,0,3,4, 3, 5, 2, 3, 6, 5, 4, 4, 4, 5, 3, 2, 2, 3, 2, 4, 2, 3, 0], // Example flow data
+      data: durations,
       backgroundColor: [ 'rgba(42, 199, 105)' ], // Set bars to green color
       borderWidth: 0, // Remove borders for each bar
       minBarLength: 5, // Set minimum bar thickness,
