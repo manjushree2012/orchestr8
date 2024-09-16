@@ -16,7 +16,7 @@
 
 
         <div class="space-y-4">
-          {% for flow_run, flow, task_run in last_30_flows_runs %}
+          {% for flow_run in last_30_flows_runs %}
             <div class="p-4 rounded-lg shadow-md">
                 <!-- Title Row -->
                 <div class="flex justify-between items-center">
@@ -31,14 +31,11 @@
                         <p>2</p>
                     </div>
                     <div>
-                        <p>Start Time</p>
-                        <p>{{ flow_run.start_time }}</p>
+                        <p>Duration</p>
+                        <p>{{ flow_run.duration }}</p>
                     </div>
 
-                    <div>
-                      <p>End Time</p>
-                      <p>{{ flow_run.end_time }}</p>
-                  </div>
+                 
                     <div class="flex items-center">
                         <p class="text-red-500 ml-2 font-semibold">{{ flow_run.status }}</p>
                     </div>
@@ -46,7 +43,7 @@
                 <div class="mt-4 flex justify-between text-sm">
                     <div> 
                         <p class="text-gray-400">Flow</p>
-                        <p class="text-blue-400">{{ flow.name }}</p>
+                        <p class="text-blue-400">{{ flow_run.flow.name }}</p>
                     </div>
                     <!-- <div>
                         <p class="text-gray-400">Work Queue</p>
@@ -106,7 +103,65 @@
 {% endblock %}
 
 {% block script %}
+<script src="https://cdn.jsdelivr.net/npm/date-fns@4.0.0/cdn.min.js"></script>
 <script>
+  const { differenceInMilliseconds, intervalToDuration, formatDuration } = window.dateFns;
+
+  // Example timestamps (start and end)
+  // const startTimestamp = new Date('2024-09-15T09:00:00');
+  // const endTimestamp = new Date('2024-09-15T10:30:45');
+  console.log('Flow duration outside:', getTimeDiff('2024-09-15T09:00:00', '2024-09-15T10:30:45'));
+
+  function getTimeDiff(startTimestampStr, endTimestampStr)
+  {
+      const startTimestamp = new Date(startTimestampStr);
+      const endTimestamp = new Date(endTimestampStr);
+
+      // Calculate the difference in milliseconds
+      const difference = differenceInMilliseconds(endTimestamp, startTimestamp);
+
+      // Convert the difference to a duration
+      const duration = intervalToDuration({ start: startTimestamp, end: endTimestamp });
+
+      // Format the duration into a human-readable format
+      const formattedDuration = formatDuration(duration, { delimiter: ', ' });
+
+      return formattedDuration
+  }
+
+    function getTimeDiffInSec(startTimestampStr, endTimestampStr) {
+    const startTimestamp = new Date(startTimestampStr);
+    const endTimestamp = new Date(endTimestampStr);
+
+    // Calculate the difference in milliseconds
+    const difference = endTimestamp - startTimestamp;
+
+    // Convert the difference to minutes
+    const minutes = Math.round(difference / 1000);
+
+    return minutes;
+  }
+</script>
+
+<script>
+  const last30Flows = {{ last_30_flows_runs | tojson }};
+
+  console.log(last30Flows)
+
+  const timeDiffs = [];
+
+  console.log()
+
+  last30Flows.forEach((flow) => {
+    const startTimestampStr = flow.flow_runs.start_time;
+    const endTimestampStr = flow.flow_runs.end_time;
+    
+    const timeDiff = getTimeDiffInSec(startTimestampStr, endTimestampStr);
+    timeDiffs.push(timeDiff);
+  });
+
+  console.log(timeDiffs); 
+
   const ctx = document.getElementById('myChart').getContext('2d');
 
   const data = {
