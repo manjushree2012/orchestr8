@@ -104,10 +104,6 @@
 {% block script %}
 <script src="https://cdn.jsdelivr.net/npm/date-fns@4.0.0/cdn.min.js"></script>
 <script>
-  const { differenceInMilliseconds, intervalToDuration, formatDuration } = window.dateFns;
-</script>
-
-<script>
   const last30Flows = {{ last_30_flows_runs | tojson }};
 
   console.log(last30Flows)
@@ -115,21 +111,6 @@
   const durations = new Array(30).fill(0);
   durations.splice(-last30Flows.length, last30Flows.length, ...last30Flows.map(flowRun => flowRun.duration));
   console.log(durations)
-
-
-  // const timeDiffs = [];
-
-  // console.log()
-
-  // last30Flows.forEach((flow) => {
-  //   const startTimestampStr = flow.flow_runs.start_time;
-  //   const endTimestampStr = flow.flow_runs.end_time;
-    
-  //   const timeDiff = getTimeDiffInSec(startTimestampStr, endTimestampStr);
-  //   timeDiffs.push(timeDiff);
-  // });
-
-  // console.log(timeDiffs); 
 
   const ctx = document.getElementById('myChart').getContext('2d');
 
