@@ -65,7 +65,8 @@ class FlowRuns(Base):
             'durationReadable': self.calculate_duration(),
 
             'flow'            : self.flow.to_dict() if self.flow else None,
-            'logs'            : [log.to_dict() for log in self.logs]
+            'logs'            : [log.to_dict() for log in self.logs],
+            'tasks'            : [task_run.to_dict() for task_run in self.task_runs],
         }
 
     def calculate_duration_in_seconds(self):
@@ -93,6 +94,18 @@ class TaskRuns(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     flow_run = relationship("FlowRuns")
+
+    def to_dict(self):
+        return {
+            'id'         : self.id,
+            'task_run_id': str(self.task_run_id),
+            'name'       : self.name,
+            'flow_run_id': str(self.flow_run_id),
+            'status'     : self.status,
+
+            'created_at' : str(self.created_at),
+            'updated_at' : str(self.updated_at),
+        }
 
 class Log(Base):
     __tablename__ = 'logs'
