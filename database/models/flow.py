@@ -50,22 +50,22 @@ class FlowRuns(Base):
 
     flow = relationship("Flow")
     task_runs = relationship("TaskRuns")
-
+    logs = relationship("Log")
 
     def to_dict(self):
         return {
-            'id'         : self.id,
-            'flow_run_id': str(self.flow_run_id),
-            'name'       : self.name,
-            'flow_id'    : str(self.flow_id),
-            'status'     : self.status,
+            'id'              : self.id,
+            'flow_run_id'     : str(self.flow_run_id),
+            'name'            : self.name,
+            'flow_id'         : str(self.flow_id),
+            'status'          : self.status,
 
-            'started_at' : humanize.naturaltime(self.start_time) if self.start_time else None,
-            'duration'    : self.calculate_duration_in_seconds(),
-            'durationReadable'   : self.calculate_duration(),
+            'started_at'      : humanize.naturaltime(self.start_time) if self.start_time else None,
+            'duration'        : self.calculate_duration_in_seconds(),
+            'durationReadable': self.calculate_duration(),
 
-            'flow'       : self.flow.to_dict() if self.flow else None,
-            # 'task_runs': [task_run.to_dict() for task_run in self.task_runs]
+            'flow'            : self.flow.to_dict() if self.flow else None,
+            'logs'            : [log.to_dict() for log in self.logs]
         }
 
     def calculate_duration_in_seconds(self):
@@ -94,7 +94,6 @@ class TaskRuns(Base):
 
     flow_run = relationship("FlowRuns")
 
-
 class Log(Base):
     __tablename__ = 'logs'
 
@@ -110,3 +109,18 @@ class Log(Base):
     
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    flow_run = relationship("FlowRuns")
+      
+    def to_dict(self):
+        return {
+            'id'         : self.id,
+            'log_id'     : str(self.log_id),
+
+            'flow_run_id': str(self.flow_run_id),
+            'task_run_id': str(self.task_run_id),
+
+            'level'      : self.level,
+            'message'    : self.message,
+            'timestamp'  : str(self.timestamp),
+        }
