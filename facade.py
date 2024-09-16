@@ -6,6 +6,8 @@ import asyncio
 from logger.log import setup
 import sys
 from logger.wrapper import LoggerWrapper
+from datetime import datetime
+
 
 import globals
 
@@ -62,8 +64,7 @@ def flow(**kwargs):
 
                 result = e
             finally:
-                import datetime
-                newFlowRun.end_time = datetime.datetime.utcnow()
+                newFlowRun.end_time = datetime.utcnow()
                 db_manager.session.commit()
 
                 db_manager.close_session()
@@ -92,6 +93,9 @@ def task(**kwargs):
             except Exception as e:
                 result = e
             finally:
+                newTaskRun.end_time = datetime.utcnow()
+                db_manager.session.commit()
+
                 return result
         return wrapper
     return decorator
