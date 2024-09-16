@@ -59,6 +59,7 @@ class FlowRuns(Base):
             'name'       : self.name,
             'flow_id'    : str(self.flow_id),
             'status'     : self.status,
+            'started_at' : humanize.naturaltime(self.start_time) if self.start_time else None,
             'duration'   : self.calculate_duration(),
             'flow'       : self.flow.to_dict() if self.flow else None,
             # 'task_runs': [task_run.to_dict() for task_run in self.task_runs]
