@@ -1,7 +1,7 @@
 import logging
-from websocket_handler import WebSocketHandler
-from database import repository
-from database_handler import DatabaseHandler
+from src.orchestrate.websocket_handler import WebSocketHandler
+from src.orchestrate.database import repository
+from src.orchestrate.database_handler import DatabaseHandler
 
 def setup(name):
     logger = logging.getLogger(name)

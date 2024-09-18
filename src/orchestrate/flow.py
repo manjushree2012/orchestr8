@@ -1,15 +1,15 @@
 import time
-from database.repository import Repository
-from data_store import flow_status_store
+from src.orchestrate.database.repository import Repository
+from src.orchestrate.data_store import flow_status_store
 from functools import wraps
 import asyncio
-from logger.log import setup
+from src.orchestrate.logger.log import setup
 import sys
-from logger.wrapper import LoggerWrapper
+from src.orchestrate.logger.wrapper import LoggerWrapper
 from datetime import datetime
 
 
-import globals
+from src.orchestrate import globals
 
 # This is the decorator factory function that accepts any number of keyword arguments
 def flow(**kwargs):
@@ -76,27 +76,3 @@ def flow(**kwargs):
                 return result
         return wrapper
     return decorator
-
-def task(**kwargs):
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **inner_kwargs):
-
-            """
-             DATABASE CREATION
-            """
-            db_manager = Repository()
-            newTaskRun = db_manager.create_task_run(flow_run_id=globals.current_flow_run.flow_run_id)
-            try:
-                result = func(*args, **inner_kwargs)
-                return result
-            except Exception as e:
-                result = e
-            finally:
-                newTaskRun.end_time = datetime.utcnow()
-                db_manager.session.commit()
-
-                return result
-        return wrapper
-    return decorator
-

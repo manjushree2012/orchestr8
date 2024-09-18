@@ -1,10 +1,10 @@
 [project]
-name = "orchestrate_manjushreeeroshan"
+name = "orchestrate"
 version = "0.0.1"
 authors = [
   { name="Roshan Manjushree Adhikari", email="manjushreeeroshan@gmail.com" },
 ]
-description = "A small example package"
+description = "Orchestrate is a framework to maintain data workflows, orchestrate flows, keep track of flow history in Python."
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
@@ -14,5 +14,5 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/pypa/sampleproject"
-Issues = "https://github.com/pypa/sampleproject/issues"
+Homepage = "https://github.com/manjushree2012/orchestr8"
+Issues = "https://github.com/manjushree2012/orchestr8/issues"

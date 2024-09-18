@@ -1,5 +1,5 @@
 import logging
-import globals
+import src.orchestrate.globals
 
 class DatabaseHandler(logging.Handler):
     def __init__(self, db_manager):
