@@ -16,3 +16,6 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/manjushree2012/orchestr8"
 Issues = "https://github.com/manjushree2012/orchestr8/issues"
+
+[project.scripts]
+orchestrate = "cli:cli"
