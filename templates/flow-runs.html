@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block title %}Flow Runs{% endblock %}
+
+{% block content %}
+<main>
+    <div class="RZmKBZs1E1eXw8vkE6jY mlwbuv_bMkMhzTA3msA3">
+        <div class="space-y-4">
+            {% for flow_run in flow_runs %}
+              <div class="p-4 rounded-lg shadow-md">
+                  <!-- Title Row -->
+                  <div class="flex justify-between items-center">
+                      <div class="flex items-center space-x-2">
+                        <a href= "{{ url_for('flow_run_details', flow_run_id = flow_run.flow_run_id) }}">
+                          <span class="text-blue-400 font-semibold">{{ flow_run.name }}</span>
+                          </a>
+                      </div>
+                      <div class="text-gray-400 text-sm">{{ flow_run.started_at }}</div>
+                  </div>
+                  <div class="mt-4 flex justify-between text-sm">
+                      <div>
+                          <p>Task Runs</p>
+                          <p>2</p>
+                      </div>
+                      <div>
+                          <p>Duration</p>
+                          <p>{{ flow_run.durationReadable }}</p>
+                      </div>
+  
+                   
+                      <div class="flex items-center">
+                        <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"> {{ flow_run.status }} </span>
+                      </div>
+                  </div>
+                  <div class="mt-4 flex justify-between text-sm">
+                      <div> 
+                          <p class="text-gray-400">Flow</p>
+                          <p class="text-blue-400">{{ flow_run.flow.name }}</p>
+                      </div>
+                      <!-- <div>
+                          <p class="text-gray-400">Work Queue</p>
+                          <p class="text-blue-400">default</p>
+                      </div> -->
+                  </div>
+              </div>
+            {% endfor %}
+          </div>
+             
+    </div>
+  </main>
+{% endblock %}
+
+{% block script %}
+<script>
+  console.log("Inside child tempalte file")
+</script>
+{% endblock %}
