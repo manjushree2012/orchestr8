@@ -37,7 +37,12 @@
                           </div>
                     </div>
                     <div class="text-gray-500 text-sm mt-1 flex items-center">
-                        <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-md">{{ flow_run.status }}</span>
+                        <!-- <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-md"> -->
+                            <!-- {{ flow_run.status }} -->
+                            {% with status=flow_run.status %}
+                                {% include "status.html" %}
+                            {% endwith %}
+                        <!-- </span> -->
                         <span>Scheduled for 2024/09/10 11:53:13 AM</span>
                         <span class="ml-4">1d 2h late</span>
                         <span class="ml-4">None</span>
