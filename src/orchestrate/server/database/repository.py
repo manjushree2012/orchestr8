@@ -88,6 +88,7 @@ class Repository:
         flow = self.session.query(Flow).filter(Flow.flow_id==flow_id_uuid).first().to_dict_flow_info()
         if flow:
             flow_runs = self.session.query(FlowRuns).filter_by(flow_id=flow_id_uuid).all()
+            flow_runs = [flow_run.to_dict_flow_info() for flow_run in flow_runs]
             return flow, flow_runs
         return None, None
     

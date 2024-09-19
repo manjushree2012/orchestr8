@@ -84,6 +84,18 @@ class FlowRuns(Base):
             'tasks'            : [task_run.to_dict() for task_run in self.task_runs],
         }
 
+    def to_dict_flow_info(self):
+        return {
+            'id'              : self.id,
+            'flow_run_id'     : str(self.flow_run_id),
+            'name'            : self.name,
+            'status'          : self.status,
+
+            'started_at'      : humanize.naturaltime(self.start_time) if self.start_time else None,
+            'duration'        : self.calculate_duration_in_seconds(),
+            'durationReadable': self.calculate_duration(),
+        }
+
     def calculate_duration_in_seconds(self):
         if self.start_time and self.end_time:
             delta = self.end_time - self.start_time

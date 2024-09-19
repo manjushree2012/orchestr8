@@ -32,9 +32,9 @@
                 <div class="flex-grow">
                     <div class="flex justify-between">
                         <div class="mt-2">
-                            <span class="text-gray-900 font-medium">Transforming Olivia123 to Paxus</span>
+                            <span class="text-gray-900 font-medium">{{ flow.name }}</span>
                             <span class="text-blue-500 font-medium">&gt;</span>
-                            <a href="#" class="text-blue-500"><span class="font-medium">{{ flow_run.name}}</span> </a>
+                            <a href="#" class="text-blue-500"><span class="font-medium">{{ flow_run.name }}</span> </a>
                           </div>
                     </div>
                     <div class="text-gray-500 text-sm mt-1 flex items-center">
@@ -45,7 +45,7 @@
                             {% endwith %}
                         <!-- </span> -->
                         <span>Scheduled for 2024/09/10 11:53:13 AM</span>
-                        <span class="ml-4">1d 2h late</span>
+                        <span class="ml-4">{{ flow_run.durationReadable }}</span>
                         <span class="ml-4">None</span>
                     </div>
                 </div>
