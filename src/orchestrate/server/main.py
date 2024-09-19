@@ -1,8 +1,17 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
+from .routes import index, flow_run
+from .routes import websocket
 
 app = FastAPI()
 
+templates = Jinja2Templates(directory="templates")
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+# Serve static files from the `static` directory
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+app.include_router(index.router)
+app.include_router(flow_run.router)
+app.include_router(websocket.router)

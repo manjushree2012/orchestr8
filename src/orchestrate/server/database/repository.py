@@ -1,6 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, func
-from src.orchestrate.database.models.flow import Flow, FlowRuns, TaskRuns, Log, Base
+from ..database.models.flow import Flow, FlowRuns, TaskRuns, Log, Base
 from datetime import datetime
 
 from sqlalchemy.orm import aliased, contains_eager
@@ -11,10 +11,10 @@ from coolname import generate_slug
 class Repository:
     def __init__(self, config_file = 'src\orchestrate\database\config.json'):
         # Load the JSON config file
-        with open('src\orchestrate\database\config.json', 'r') as file:
-            config = json.load(file)
+        # with open('..database\config.json', 'r') as file:
+        #     config = json.load(file)
         
-        self.DATABASE_URL = config['engine']
+        self.DATABASE_URL =  "sqlite:///orchestrate.db"
 
         # Create an engine
         self.engine = create_engine(self.DATABASE_URL, echo=True)
