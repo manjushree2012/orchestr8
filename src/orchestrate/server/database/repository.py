@@ -9,12 +9,11 @@ import json
 
 from coolname import generate_slug
 class Repository:
-    def __init__(self, config_file = 'src\orchestrate\database\config.json'):
-        # Load the JSON config file
-        # with open('..database\config.json', 'r') as file:
-        #     config = json.load(file)
-        
-        self.DATABASE_URL =  "sqlite:///orchestrate.db"
+    def __init__(self):
+        import os
+        user_folder = os.path.join(os.path.expanduser('~'), 'orchestrate.db')
+        print(f'User folder: {user_folder}')
+        self.DATABASE_URL = f"sqlite:///{user_folder}"        
 
         # Create an engine
         self.engine = create_engine(self.DATABASE_URL, echo=True)
@@ -47,7 +46,8 @@ class Repository:
         return self.session.query(FlowRuns).get(flow_run.id)
 
     def get_all_flows(self):
-        return self.session.query(Flow).all()
+        flows = self.session.query(Flow).all()
+        return [flow.to_dict() for flow in flows]
 
     def create_task_run(self, flow_run_id):
         task_run = TaskRuns(name = generate_slug(2), flow_run_id = flow_run_id)
