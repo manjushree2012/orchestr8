@@ -85,7 +85,7 @@ class Repository:
     def get_flow_with_runs(self, flow_id):
         import uuid
         flow_id_uuid = uuid.UUID(flow_id) # Convert the string to UUID object
-        flow = self.session.query(Flow).filter(Flow.flow_id==flow_id_uuid).first()
+        flow = self.session.query(Flow).filter(Flow.flow_id==flow_id_uuid).first().to_dict_flow_info()
         if flow:
             flow_runs = self.session.query(FlowRuns).filter_by(flow_id=flow_id_uuid).all()
             return flow, flow_runs

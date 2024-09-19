@@ -33,6 +33,21 @@ class Flow(Base):
             'updated_at' : str(self.updated_at)
         }
 
+    def to_dict_flow_info(self):
+          return {
+            'id'                 : self.id,
+            'flow_id'            : str(self.flow_id),
+            'name'               : self.name,
+            'entry_point'        : self.entry_point,
+            'tags'               : self.tags,
+            'created_at_readable': self.calculate_created_at_readable(),
+        }
+
+    def calculate_created_at_readable(self):
+        if self.created_at:
+            return humanize.naturaltime(self.created_at)
+        return None
+
 class FlowRuns(Base):
     __tablename__ = 'flow_runs'
     
