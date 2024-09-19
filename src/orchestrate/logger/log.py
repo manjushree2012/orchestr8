@@ -1,6 +1,6 @@
 import logging
 from src.orchestrate.websocket_handler import WebSocketHandler
-from src.orchestrate.database import repository
+from src.orchestrate.server.database import repository
 from src.orchestrate.database_handler import DatabaseHandler
 
 def setup(name):
