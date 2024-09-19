@@ -37,6 +37,10 @@ def flow(**kwargs):
             newFlow = db_manager.create_flow(flow_name, 'main.py', tags=tags)
             newFlowRun = db_manager.create_flow_run(flow_id=newFlow.flow_id)
 
+            newFlowRun.status = "RUNNING"
+            db_manager.session.commit()
+
+
             globals.current_flow = newFlow
             globals.current_flow_run = newFlowRun
 
@@ -57,10 +61,19 @@ def flow(**kwargs):
 
                  # Send a status update when the flow completes
                 asyncio.run(handler.send_status("COMPLETED"))
+
+                newFlowRun.status = "COMPLETED"
+                db_manager.session.commit()
+
                 return result
             except Exception as e:
                 # Send a status update on error
                 asyncio.run(handler.send_status("ERROR"))
+
+                # print(f"Exception occured as this one : {e}")
+
+                newFlowRun.status = "FAILED"
+                db_manager.session.commit()
 
                 result = e
             finally:
