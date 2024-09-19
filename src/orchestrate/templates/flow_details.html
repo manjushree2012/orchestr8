@@ -9,6 +9,9 @@
                 <div class="VQS2tmQ_zFyBOC2tkmto">
                 <span class="q1oXbofRCOhVhOSB8tiU IOPhczRgtphv6NdNBDjj wgkxUJNDca22__ptDPRh __9sbu0yrzdhGIkLWNXl cdZDaAM7xDQV_z8X7CiP OyABRrnTV_kvHV7dJ0uE">
                     {{ flow.name }}
+                    {% for tag in flow.tags %}
+                        <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">{{ tag }}</span>
+                    {% endfor %}
                 </span>
                 <h3 class="d3C8uAdJKNl1jzfE9ynq _43MO1gcdi2Y0RJW1uHL PeR2JZ9BZHYIH8Ea3F36 XIIs8ZOri3wm8Wnj9N_y">
                     Created: 
