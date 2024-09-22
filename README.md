@@ -1,6 +1,4 @@
-## Orchestrate
-
-------------
+# Orchestrate
 
 Orchestrate is a framework to maintain data workflows, orchestrate flows, keep track of flow history in Python. Inspired by *[Prefect](https://www.prefect.io/ "Prefect")*,  Orchestrate allows its users to build resilient and dynamic data pipelines,  and keep platform to monitor history of each flow.
 
