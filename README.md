@@ -11,7 +11,7 @@ Please note that Orchestrate is currently in actve developement stage.  Please d
 
 ## Getting Started
 Orchestrate requires Python >=3.9  Since the application is currently in development stage, you can try it out by installating via the pypi package manager. 
-[https://test.pypi.org/project/orchestrate-manjushreeeroshan/](https://test.pypi.org/project/orchestrate/)
+[https://test.pypi.org/project/orchestrate/](https://test.pypi.org/project/orchestrate/)
 
 To install, open the terminal in the root directory of your project, and:
 `pip install -i https://test.pypi.org/simple/ orchestrate`
