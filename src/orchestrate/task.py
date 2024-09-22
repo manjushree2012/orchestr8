@@ -9,7 +9,7 @@ from src.orchestrate.logger.wrapper import LoggerWrapper
 from datetime import datetime
 
 
-import src.orchestrate.globals
+from src.orchestrate import globals
 
 def task(**kwargs):
     def decorator(func):
