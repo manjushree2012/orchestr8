@@ -14,29 +14,30 @@ Orchestrate requires Python >=3.9  Since the application is currently in develop
 To install, open the terminal in the root directory of your project, and:
 `pip install -i https://test.pypi.org/simple/ orchestrate`
 
-For this tutorial, we will just create a simple application.
-
+A hello world application for Orchestrate would look like this:
 ```python
-from prefect import flow, task
-from typing import list
+from orchestrate import flow, task
 import httpx
 
+@task
+def get_coffee_data():
+    url = "https://api.sampleapis.com/coffee/hot"
+    data = httpx.get(url).json()
+    return data
 
-@task(log_prints=True)
-def get_stars(repo: str):
-    url = f"https://api.github.com/repos/{repo}"
-    count = httpx.get(url).json()["stargazers_count"]
-    print(f"{repo} has {count} stars!")
+@task
+def get_wine_data():
+    url = "https://api.sampleapis.com/beers/ale"
+    data = httpx.get(url).json()
+    return data
 
-
-@flow(name="GitHub Stars")
-def github_stars(repos: list[str]):
-    for repo in repos:
-        get_stars(repo)
-
+@flow(name="Food Enquiry")
+def enquire_food():
+    get_coffee_data()
+    get_wine_data()
 
 # run the flow!
 if __name__=="__main__":
-    github_stars(["PrefectHQ/Prefect"])
+    enquire_food()
 ```
 
