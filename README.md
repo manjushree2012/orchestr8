@@ -41,3 +41,9 @@ if __name__=="__main__":
     enquire_food()
 ```
 
+## Screenshots
+![Screenshot 2024-09-22 141333](https://github.com/user-attachments/assets/e0f7f664-839b-41e1-b08e-b86843953a0f)
+
+![Screenshot 2024-09-22 141618](https://github.com/user-attachments/assets/cd67d7d4-75b9-4881-8610-ab0f90b8e2a2)
+
+
