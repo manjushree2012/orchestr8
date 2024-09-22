@@ -12,7 +12,6 @@ class Repository:
     def __init__(self):
         import os
         user_folder = os.path.join(os.path.expanduser('~'), 'orchestrate.db')
-        print(f'User folder: {user_folder}')
         self.DATABASE_URL = f"sqlite:///{user_folder}"        
 
         # Create an engine

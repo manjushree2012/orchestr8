@@ -70,7 +70,7 @@ def flow(**kwargs):
                 # Send a status update on error
                 asyncio.run(handler.send_status("ERROR"))
 
-                print(f"Exception occured as this one : {e}")
+                print(f"{e}")
 
                 newFlowRun.status = "FAILED"
                 db_manager.session.commit()
