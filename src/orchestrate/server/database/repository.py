@@ -67,20 +67,8 @@ class Repository:
         return log
 
     def get_last_N_flow_runs(self, n):
-        FlowAlias = aliased(Flow)
-        TaskRunsAlias = aliased(TaskRuns)
-
-        result = self.session.query(FlowRuns) \
-            .join(FlowAlias, FlowRuns.flow_id == FlowAlias.flow_id) \
-            .join(TaskRunsAlias, FlowRuns.flow_run_id == TaskRunsAlias.flow_run_id) \
-            .options(contains_eager(FlowRuns.flow)) \
-            .options(contains_eager(FlowRuns.task_runs)) \
-            .order_by(FlowRuns.id.desc()) \
-            .limit(n) \
-            .all()
-
-        result_dict = [flow_run.to_dict() for flow_run in result]
-        return result_dict
+        flow_runs = self.session.query(FlowRuns).all()
+        return [flow_run.to_dict_dashboard() for flow_run in flow_runs]
                 
     def get_flow_with_runs(self, flow_id):
         import uuid
