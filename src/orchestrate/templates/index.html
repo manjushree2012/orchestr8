@@ -112,9 +112,24 @@
 
   console.log(last30Flows)
 
+  const statusColors = {
+    'completed': 'rgba(42, 199, 105)',
+    'failed': 'rgb(217,45,32)',
+    'running' : 'rgb(210,235,255)',
+    'queued' : 'rgb(254,249,195)'
+
+  };
+
   const durations = new Array(30).fill(0);
   durations.splice(-last30Flows.length, last30Flows.length, ...last30Flows.map(flowRun => flowRun.duration));
   console.log(durations)
+
+  const colors = new Array(30).fill('rgb(111,114,123)'); // Initialize with transparent color
+  last30Flows.forEach((flowRun, index) => {
+    colors[29 - index] = statusColors[flowRun.status.toLowerCase()]; // Map status to color
+  });
+
+  console.log(colors)
 
   const ctx = document.getElementById('myChart').getContext('2d');
 
@@ -123,7 +138,7 @@
     datasets: [{
       label: 'Flows',
       data: durations,
-      backgroundColor: [ 'rgba(42, 199, 105)' ], // Set bars to green color
+      backgroundColor: colors, // Set bars to green color
       borderWidth: 0, // Remove borders for each bar
       minBarLength: 5, // Set minimum bar thickness,
       borderRadius: 25
