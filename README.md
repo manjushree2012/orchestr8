@@ -12,10 +12,13 @@ Orchestrate requires Python >=3.9  Since the application is currently in develop
 [https://test.pypi.org/project/orchestrate/](https://test.pypi.org/project/orchestrate/)
 
 To install, open the terminal in the root directory of your project, and:
-`pip install -i https://test.pypi.org/simple/ orchestrate`
+```bash
+pip install -i https://test.pypi.org/simple/ orchestrate
+```
 
 A hello world application for Orchestrate would look like this:
 ```python
+#main.py
 from orchestrate import flow, task
 import httpx
 
@@ -40,6 +43,17 @@ def enquire_food():
 if __name__=="__main__":
     enquire_food()
 ```
+
+To start the orchestrate server, enter the following command:
+```bash
+orchestrate server start
+```
+
+In order to run a flow,you need to run the python file containing the flow definition. In our example, the command would be:
+```bash
+py main.py
+```
+
 
 ## Screenshots
 ![Screenshot 2024-09-22 141333](https://github.com/user-attachments/assets/e0f7f664-839b-41e1-b08e-b86843953a0f)
