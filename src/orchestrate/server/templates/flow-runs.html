@@ -4,6 +4,7 @@
 {% block content %}
 <main>
     <div class="RZmKBZs1E1eXw8vkE6jY mlwbuv_bMkMhzTA3msA3">
+      {% if flow_runs %}
         <div class="space-y-4">
             {% for flow_run in flow_runs %}
               <div class="p-4 rounded-lg shadow-md">
@@ -43,8 +44,17 @@
                   </div>
               </div>
             {% endfor %}
+        </div>
+      {% else %}
+        <section class="bg-white">
+          <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+            <div class="mx-auto max-w-screen-sm text-center">               
+                <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl">Run a flow to get started.</p>
+                <p class="mb-4 text-lg font-light text-gray-500">Flow runs are seperate instances of individual execution of a flow at a certain time. </p>
+            </div>   
           </div>
-             
+        </section>
+      {% endif %}             
     </div>
   </main>
 {% endblock %}
