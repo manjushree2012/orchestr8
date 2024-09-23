@@ -8,7 +8,12 @@ def cli():
     """CLI for managing the FastAPI server."""
     pass
 
-@cli.command()
+@cli.group()
+def server():
+    """Commands for managing the server."""
+    pass
+
+@server.command()
 def start():
     """Start the FastAPI server."""
     # Importing here to avoid circular dependencies if needed
