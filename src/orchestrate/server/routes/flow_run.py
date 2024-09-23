@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -6,7 +7,9 @@ from ..database.repository import Repository
 
 router = APIRouter()
 
-templates = Jinja2Templates(directory="templates")
+grandparent_dir = os.path.dirname(os.path.dirname(__file__))
+templates_dir = os.path.join(grandparent_dir, 'templates')
+templates = Jinja2Templates(directory=templates_dir)
 
 @router.get("/flow-run", response_class=HTMLResponse)
 async def flow_run(request: Request):

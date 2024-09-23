@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -7,10 +8,12 @@ from .routes import websocket
 
 app = FastAPI()
 
-templates = Jinja2Templates(directory="templates")
+templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
+templates = Jinja2Templates(directory=templates_dir)
 
 # Serve static files from the `static` directory
-app.mount("/static", StaticFiles(directory="static"), name="static")
+static_dir = os.path.join(os.path.dirname(__file__), 'static')
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 app.include_router(index.router)
 app.include_router(flow_run.router)
