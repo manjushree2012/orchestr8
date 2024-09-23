@@ -66,7 +66,7 @@ class Repository:
         return log
 
     def get_last_N_flow_runs(self, n):
-        flow_runs = self.session.query(FlowRuns).all()
+        flow_runs = self.session.query(FlowRuns).order_by(FlowRuns.id.desc()).limit(n).all()
         return [flow_run.to_dict_dashboard() for flow_run in flow_runs]
                 
     def get_flow_with_runs(self, flow_id):
