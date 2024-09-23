@@ -46,7 +46,7 @@ class Repository:
 
     def get_all_flows(self):
         flows = self.session.query(Flow).all()
-        return [flow.to_dict() for flow in flows]
+        return [flow.to_dict_dashboard() for flow in flows]
 
     def create_task_run(self, flow_run_id):
         task_run = TaskRuns(name = generate_slug(2), flow_run_id = flow_run_id)

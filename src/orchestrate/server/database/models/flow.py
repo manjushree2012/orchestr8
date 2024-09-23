@@ -33,6 +33,18 @@ class Flow(Base):
             'updated_at' : str(self.updated_at)
         }
 
+    def to_dict_dashboard(self):
+        return {
+            'id'         : self.id,
+            'flow_id'    : str(self.flow_id),
+            'name'       : self.name,
+            'entry_point': self.entry_point,
+            'tags'       : self.tags,
+            'created_at' : str(self.created_at),
+            'updated_at' : str(self.updated_at),
+            'count_flow_runs' : len(self.flow_runs),
+        } 
+
     def to_dict_flow_info(self):
           return {
             'id'                 : self.id,
