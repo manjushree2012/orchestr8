@@ -72,45 +72,55 @@
       
         <!-- Right Content -->
         <div class="xCPtuxM4_gihvpPwv9bX iHPddplqYvrN6qWgvntn AqVNvLG_H6VHhym2yKMp r8lSKzxeZmXfyH8vtxDQ">
-          <!-- Top Sales Card -->
-          <div class="_wYiJGbRZyFZeCc8y7Sf hD0sTTDgbxakubcHVW2X uLPch_bqyJDXwe5tynMV _Ybd3WwuTVljUT4vEaM3 mveJTCIb2WII7J4sY22F mngKhi_Rv06PF57lblDI _YxZw_O8dWkTljptcO7z _1jTZ8KXRZul60S6czNi">
-            <h3 class="TR_P65x9ie7j6uxFo_Cs vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Active Flows</h3>
+          {% if not active_flows %}
+            <div class="_wYiJGbRZyFZeCc8y7Sf hD0sTTDgbxakubcHVW2X uLPch_bqyJDXwe5tynMV _Ybd3WwuTVljUT4vEaM3 mveJTCIb2WII7J4sY22F mngKhi_Rv06PF57lblDI _YxZw_O8dWkTljptcO7z _1jTZ8KXRZul60S6czNi">
+              <h3 class="TR_P65x9ie7j6uxFo_Cs vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Active Flows</h3>
 
-            <div class="space-y-4">
-              {% for flow in active_flows %}
-                <div class="p-4 rounded-lg shadow-md">
-                    <!-- Title Row -->
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-2">
-                          <a href= "{{ url_for('flow_details', flow_id = flow.flow_id) }}">
-                            <span class="text-blue-400 font-semibold">{{ flow.name }}</span>
-                          </a>
-                            <div class="flex space-x-1">
-                              {% for tag in flow.tags %}
-                                <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">{{ tag }}</span>
-                              {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 flex justify-between text-sm">
-                        <div>
-                            <p>Flow Runs</p>
-                            <p>2</p>
-                        </div>
-                        <div>
-                            <p>Last Run On</p>
-                            <p>{{ 'Help' }}</p>
-                        </div>
-    
-                        <div>
-                          <p>Next Run</p>
-                          <p>{{ '--'  }}</p>
+              <div class="space-y-4">
+                {% for flow in active_flows %}
+                  <div class="p-4 rounded-lg shadow-md">
+                      <!-- Title Row -->
+                      <div class="flex justify-between items-center">
+                          <div class="flex items-center space-x-2">
+                            <a href= "{{ url_for('flow_details', flow_id = flow.flow_id) }}">
+                              <span class="text-blue-400 font-semibold">{{ flow.name }}</span>
+                            </a>
+                              <div class="flex space-x-1">
+                                {% for tag in flow.tags %}
+                                  <span class="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-md">{{ tag }}</span>
+                                {% endfor %}
+                              </div>
+                          </div>
                       </div>
-                    </div>
-                </div>
-              {% endfor %}
+                      <div class="mt-4 flex justify-between text-sm">
+                          <div>
+                              <p>Flow Runs</p>
+                              <p>2</p>
+                          </div>
+                          <div>
+                              <p>Last Run On</p>
+                              <p>{{ 'Help' }}</p>
+                          </div>
+      
+                          <div>
+                            <p>Next Run</p>
+                            <p>{{ '--'  }}</p>
+                        </div>
+                      </div>
+                  </div>
+                {% endfor %}
+              </div>
             </div>
-          </div>
+          {% else %}
+          <section class="bg-white">
+            <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+              <div class="mx-auto max-w-screen-sm text-center">               
+                  <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl">Register a flow to get started.</p>
+                  <p class="mb-4 text-lg font-light text-gray-500">Flows are just python functions that are decorated using Orchestrate's flow decorator. Please goto github for the sample hello world script.</p>
+              </div>   
+            </div>
+          </section>
+          {% endif %}
         </div>
 
 
