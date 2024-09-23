@@ -34,15 +34,18 @@ class Flow(Base):
         }
 
     def to_dict_dashboard(self):
+        last_run_on = max((flow_run.start_time for flow_run in self.flow_runs if flow_run.start_time), default=None)
+
         return {
-            'id'         : self.id,
-            'flow_id'    : str(self.flow_id),
-            'name'       : self.name,
-            'entry_point': self.entry_point,
-            'tags'       : self.tags,
-            'created_at' : str(self.created_at),
-            'updated_at' : str(self.updated_at),
-            'count_flow_runs' : len(self.flow_runs),
+            'id'             : self.id,
+            'flow_id'        : str(self.flow_id),
+            'name'           : self.name,
+            'entry_point'    : self.entry_point,
+            'tags'           : self.tags,
+            'created_at'     : str(self.created_at),
+            'updated_at'     : str(self.updated_at),
+            'count_flow_runs': len(self.flow_runs),
+            'last_run_on'    : humanize.naturaltime(last_run_on) if last_run_on else None
         } 
 
     def to_dict_flow_info(self):
